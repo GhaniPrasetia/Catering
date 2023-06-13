@@ -244,6 +244,15 @@
                                 .then(() => {
                                     location.reload();
                                 });
+                        } else if (res.status == 'login') {
+                            Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Silahkan login terlebih dahulu',
+                                    showConfirmButton: true,
+                                })
+                                .then(() => {
+                                    location.href = res.link;
+                                });
                         }
                     }
                 });

@@ -113,9 +113,12 @@
                                             </div>
 
                                         </form>
-                                        <!-- <div class="mt-2 text-center">
+                                        <div class="mt-2 text-center">
                                             <a href="<?= base_url() ?>">Kembali ke beranda</a>
-                                        </div> -->
+                                        </div>
+                                        <div class="mt-2 text-center">
+                                            <a class="fw-600 text-danger" style="text-decoration: underline !important;" href="<?= base_url('login/registrasi') ?>">Belum Punya akun ?</a>
+                                        </div>
                                     </div>
                                 </div>
 

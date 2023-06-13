@@ -51,7 +51,7 @@
                             <button onclick="update_status('<?= $key->id ?>','5', 'Batalkan Pesanan');" class="btn fw-600 btn-light">BATALKAN</button>
                         <?php endif; ?>
                         <?php if (in_array($status, [2, 3])) : ?>
-                            <!-- <button onclick="window.open('<?= base_url($key->bukti_bayar) ?>');" class="btn fw-600 btn-primary"><i class="fa fa-image"></i> LIHAT BUKTI BAYAR</button> -->
+                            <button onclick="window.open('<?= base_url($key->bukti_bayar) ?>');" class="btn fw-600 btn-primary"><i class="fa fa-image"></i> LIHAT BUKTI BAYAR</button>
                         <?php endif; ?>
 
                     </div>

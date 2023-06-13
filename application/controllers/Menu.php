@@ -7,6 +7,14 @@ class Menu extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        if (@$_SESSION['is_login']) {
+            if ($_SESSION['id_otoritas'] == 1) $link = base_url('super_admin/dashboard');
+            elseif ($_SESSION['id_otoritas'] == 2) $link = base_url('admin/dashboard');
+            elseif ($_SESSION['id_otoritas'] == 3) $link = base_url('user/menu_list');
+            redirect($link);
+        }
+
         $this->id_akun = 0;
     }
 
@@ -122,6 +130,14 @@ class Menu extends CI_Controller
     public function proses_pesanan()
     {
         cek_post();
+
+        if ($this->id_akun == 0) {
+            dd([
+                'status' => 'login',
+                'link' => base_url('login'),
+            ]);
+        }
+
         $get_keranjang = $this->db->query("SELECT
             a.*,
             
@@ -131,9 +147,8 @@ class Menu extends CI_Controller
             
             case when a.jenis='menu' then b.harga
             when a.jenis='paketan' then c.harga 
-            end as harga_menu,
-                            
-                            a.quantity * (case when a.jenis='menu' then b.harga
+            end as harga_menu,                            
+            a.quantity * (case when a.jenis='menu' then b.harga
             when a.jenis='paketan' then c.harga
             end) as sub_total
         FROM

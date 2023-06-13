@@ -77,7 +77,7 @@ class Menu_list extends MY_controller
                 left join data_menu b on b.id=a.id_menu
                 left join paketan c on c.id=a.id_menu
             WHERE
-                a.id_user = '$this->id_akun' and a.deleted IS NULL 
+                (a.id_user = '$this->id_akun' OR a.id_user=0) and a.deleted IS NULL 
             ORDER BY
                 a.id ASC
         ")->result();
@@ -93,7 +93,7 @@ class Menu_list extends MY_controller
                 left join data_menu b on b.id=a.id_menu
                 left join paketan c on c.id=a.id_menu
             WHERE
-                a.id_user = '$this->id_akun' and a.deleted IS NULL
+                (a.id_user = '$this->id_akun' OR a.id_user=0) and a.deleted IS NULL
         ")->row()->total;
 
         $html = $this->load->view('user/menu_list/keranjang', $data, true);
@@ -131,8 +131,7 @@ class Menu_list extends MY_controller
             case when a.jenis='menu' then b.harga
             when a.jenis='paketan' then c.harga 
             end as harga_menu,
-                            
-                            a.quantity * (case when a.jenis='menu' then b.harga
+            a.quantity * (case when a.jenis='menu' then b.harga
             when a.jenis='paketan' then c.harga
             end) as sub_total
         FROM
@@ -140,7 +139,7 @@ class Menu_list extends MY_controller
             left join data_menu b on b.id=a.id_menu
             left join paketan c on c.id=a.id_menu
         WHERE
-            a.id_user = '$this->id_akun' and a.deleted IS NULL 
+            (a.id_user = '$this->id_akun' OR a.id_user=0) and a.deleted IS NULL 
         ORDER BY
             a.id DESC")->result();
 
@@ -167,11 +166,12 @@ class Menu_list extends MY_controller
         if (!empty($arr)) {
             $this->db->insert_batch('pesanan_has_detail', $arr);
 
-            $this->db->where('id_user', $this->id_akun);
+            $this->db->where_in('id_user', [$this->id_akun, 0]);
             $this->db->update('keranjang', [
                 'deleted' => date('Y-m-d H:i:s'),
             ]);
         }
+
 
         echo json_encode([
             'status' => 'success',
