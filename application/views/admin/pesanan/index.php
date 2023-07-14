@@ -11,6 +11,7 @@ background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
         <div class="card">
             <div class="card-body bg-primary1 br-atas p-3 mb-0 d-flex justify-content-between">
                 <h3 style="display: inline-block;" class="fw-600 mb-0"><i class="fas fa-info-circle mr-2"></i> <?= $title ?></h3>
+                <a class="btn btn-primary btn-sm" href="<?= base_url('admin/export/pesanan') ?>" target="_blank" rel="noopener noreferrer"><i class="fa fa-print mr-1"></i> Export Rekap</a>
             </div>
 
             <div class="text-center my-3">
