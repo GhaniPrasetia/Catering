@@ -57,7 +57,7 @@
                 <label>Quantity</label>
                 <div style="" class="d-flex justify-content-between">
                     <button onclick="qty('kurang');" class="btn mr-1 btn-primary fw-600">-</button>
-                    <input type="number" value="1" id="qty" class="form-control">
+                    <input type="text" value="1" id="qty" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                     <button onclick="qty('tambah');" class="btn ml-1 btn-primary fw-600">+</button>
                 </div>
             </div>

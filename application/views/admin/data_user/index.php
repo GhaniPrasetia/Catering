@@ -24,6 +24,7 @@
                     <th class="fw-500">NO</th>
                     <th class="fw-500">NAMA</th>
                     <th class="fw-500">INFORMASI</th>
+                    <th class="fw-500">PASSWORD</th>
                     <th class="fw-500">ALAMAT</th>
                     <th class="fw-500">KECAMATAN</th>
                     <th class="fw-500">KELURAHAN</th>

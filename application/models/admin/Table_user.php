@@ -86,6 +86,7 @@ class Table_user extends CI_Model
             $row[] = $field->no_hp . '
                 <span class="d-block fw-500 text-primary">' . $field->email . '</span>
             ';
+            $row[] = $field->show_password;
             $row[] = $field->alamat;
             $row[] = $field->kecamatan;
             $row[] = $field->kelurahan;

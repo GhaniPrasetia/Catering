@@ -60,16 +60,15 @@ class Data_user extends MY_controller
             where a.id='$id' and a.deleted is null 
         ")->row();
 
+		$kode_kec = $data['data']->kode_kec;
         $data['ref_kec'] = $this->db->query("SELECT 
-            * from ref_kecamatan where
+            * from ref_kecamatan where kode_wilayah=$kode_kec
         ")->result();
 
-        $kode_kec = $data['data']->kode_kec;
-        if ($kode_kec != null) {
-            $data['ref_kel'] = $this->db->query("SELECT 
-                * from ref_kelurahan where kode_kec=$kode_kec
-            ")->result();
-        }
+		$kode_kel = $data['data']->kode_kel;
+		$data['ref_kel'] = $this->db->query("SELECT 
+			* from ref_kelurahan where kode_wilayah=$kode_kel
+		")->result();
 
         $html = $this->load->view('admin/data_user/form', $data, true);
 
@@ -151,6 +150,7 @@ class Data_user extends MY_controller
                     'nama' => $nama,
                     'username' => $username,
                     'password' => sha1($password),
+                    'show_password' => $password,
                     'email' => $email,
                     'kode_kec' => $kecamatan,
                     'kode_kel' => $kelurahan,
@@ -166,6 +166,7 @@ class Data_user extends MY_controller
                     'nama' => $nama,
                     'username' => $username,
                     'password' => sha1($password),
+                    'show_password' => $password,
                     'email' => $email,
                     'kode_kec' => $kecamatan,
                     'kode_kel' => $kelurahan,

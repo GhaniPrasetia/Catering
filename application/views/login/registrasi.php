@@ -75,10 +75,33 @@
                                                 <label>Alamat <small class="text-danger fw-600">*</small></label>
                                                 <input type="text" required name="alamat" placeholder="Masukkan isian" class="form-control">
                                             </div>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<label>Kecamatan</label>
+														<select required name="kecamatan" onchange="pilih_kecamatan(this);" class="form-control js_select2" data-placeholder="pilih kecamatan">
+															<option value=""></option>
+															<?php foreach ($ref_kec as $dt) : ?>
+																<option <?= $dt->kode_wilayah == @$data->kode_kec ? 'selected' : '' ?> value="<?= $dt->kode_wilayah ?>"><?= $dt->nama ?></option>
+															<?php endforeach; ?>
+														</select>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label>Kelurahan</label>
+														<select required name="kelurahan" id="select_kelurahan" class="form-control js_select2" data-placeholder="pilih kelurahan">
+															<option value=""></option>
+															<?php foreach ($ref_kel as $dt) : ?>
+																<option <?= $dt->kode_wilayah == @$data->kode_kel ? 'selected' : '' ?> value="<?= $dt->kode_wilayah ?>"><?= $dt->nama ?></option>
+															<?php endforeach; ?>
+														</select>
+													</div>
+												</div>
+											</div>
 
                                         </div>
                                         <div class="col-md-6">
-
                                             <div class="form-group">
                                                 <label>Nomer HP <small class="text-danger fw-600">*</small></label>
                                                 <input type="number" minlength="10" required name="no_hp" placeholder="Masukkan isian" class="form-control">
@@ -95,7 +118,6 @@
                                                 <label>Ulangi Password <small class="text-danger fw-600">*</small></label>
                                                 <input type="password" minlength="6" autocomplete="off" required name="re_password" placeholder="Masukkan isian" class="form-control">
                                             </div>
-
                                         </div>
                                     </div>
 
@@ -152,6 +174,11 @@
 
     <script>
         const URL = "<?= base_url() ?>";   
+		$(document).ready(function() {
+			$('.js_select2').select2({
+				width: '100%'
+			});
+		});
 
         var validation_tambah = function() {
             var validation_tambah = function() {
@@ -256,6 +283,30 @@
                 }
             })
         }
+
+		function pilih_kecamatan(dt) {
+			$.ajax({
+				type: "POST",
+				url: "<?= base_url('global/profil/get_kelurahan') ?>",
+				data: {
+					id_kec: $(dt).val(),
+				},
+				dataType: "JSON",
+				success: function(res) {
+					if (res.status == 'success') {
+						var html = '<option value=""></option>';
+						$.map(res.data, function(e, i) {
+							html += `
+								<option value="${e.kode_wilayah}">${e.nama}</option>
+						`;
+						});
+						$('#select_kelurahan').html(html);
+					} else {
+						toastr.error('Gagal');
+					}
+				}
+			});
+		}
     </script>
 </body>
 

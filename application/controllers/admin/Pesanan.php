@@ -39,23 +39,45 @@ class Pesanan extends MY_controller
 
     public function load()
     {
-        cek_post();
-        $id = $this->input->post('id');
+		cek_post();
+		$id = $this->input->post('id'); 
+		
+		$query = "SELECT
+					pesanan.id,
+					pesanan.id_user,
+					pesanan.status,
+					data_user.nama,
+					pesanan_has_detail.id_menu,
+					pesanan_has_detail.harga,
+					pesanan_has_detail.jenis,
+					pesanan_has_detail.quantity,
+					pesanan_has_detail.sub_total,
+					data_menu.nama AS menu_nama,
+					pesanan.bukti_bayar
+				FROM
+					pesanan
+				LEFT JOIN pesanan_has_detail ON pesanan.id = pesanan_has_detail.id_pesanan
+				LEFT JOIN data_user ON pesanan.id_user = data_user.id
+				LEFT JOIN data_menu ON pesanan_has_detail.id_menu = data_menu.id
+				WHERE
+				pesanan.deleted IS NULL";
+		
+		if ($id == 'batal') {
+			$query .= " AND pesanan.status IN (4, 5) GROUP BY pesanan.id";
+		} else {
+			$query .= " AND pesanan.status IN ('$id') GROUP BY pesanan.id";
+		}
+	
+		$all = $this->db->query($query)->result();
+	
+		$data['all'] = $all;
+		$data['status'] = $id;
+		$html = $this->load->view('admin/pesanan/list', $data, true);
 
-        if ($id == 'batal') {
-            $all = $this->db->query("SELECT * from pesanan where status in ('4','5') and deleted is null ")->result();
-        } else {
-            $all = $this->db->query("SELECT * from pesanan where status='$id' and deleted is null ")->result();
-        }
-
-        $data['all'] = $all;
-        $data['status'] = $id;
-        $html = $this->load->view('admin/pesanan/list', $data, true);
-
-        echo json_encode([
-            'status' => 'success',
-            'html' => $html,
-        ]);
+		echo json_encode([
+			'status' => 'success',
+			'html' => $html,
+		]);
     }
 
     public function update_status()

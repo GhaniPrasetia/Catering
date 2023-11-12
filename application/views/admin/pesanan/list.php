@@ -11,6 +11,11 @@
                         </span>
                     </div>
 
+					<?php
+						$id_user = $key->id_user;
+						echo "Nama: " . ($id_user == 0 ? '---' : $key->nama);
+					?>
+	
                     <div class="table-responsive">
                         <table class="table table-bordered table-sm" style="width: 100%;">
                             <thead>

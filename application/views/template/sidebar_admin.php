@@ -65,12 +65,12 @@
                         <span>Data User</span>
                     </a>
                 </li>
-                <li class="<?= $this->uri->segment(2) == 'note' ? 'mm-active' : '' ?> single-link">
+                <!-- <li class="<?= $this->uri->segment(2) == 'note' ? 'mm-active' : '' ?> single-link">
                     <a href="<?= base_url('admin/note') ?>" class="waves-effect fw-500">
                         <i class="fas fa-sticky-note"></i>
                         <span>Sticky Note</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
         <!-- Sidebar -->
