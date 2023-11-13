@@ -75,7 +75,7 @@
                                                 <label>Alamat <small class="text-danger fw-600">*</small></label>
                                                 <input type="text" required name="alamat" placeholder="Masukkan isian" class="form-control">
                                             </div>
-											<div class="row">
+											<!-- <div class="row">
 												<div class="col-md-6">
 													<div class="form-group">
 														<label>Kecamatan</label>
@@ -98,7 +98,7 @@
 														</select>
 													</div>
 												</div>
-											</div>
+											</div> -->
 
                                         </div>
                                         <div class="col-md-6">
